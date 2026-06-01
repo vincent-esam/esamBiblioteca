@@ -1,0 +1,15 @@
+{
+  "titulo": "Introducción a MySQL",
+  "subtitulo": "Base de datos desde cero",
+  "descripcion": "Libro introductorio sobre bases de datos.",
+  "isbn": "978-0000000001",
+  "fecha_registro": "2026-05-27",
+  "edicion": 1,
+  "numero_paginas": 250,
+  "id_categoria": 1,
+  "id_autor": 1,
+  "id_editorial": 1,
+  "id_idioma": 1,
+  "id_formato": 1,
+  "ruta_portada": ""
+}
