@@ -1,21 +1,8 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| API REST: Mostrar información de un libro según su ID
-|--------------------------------------------------------------------------
-| Método: GET
-| Parámetro requerido: id_libro
-| Ejemplo:
-| http://localhost/Proyecto_cocha/api/libro_por_id.php?id_libro=1
-*/
+
 
 header("Content-Type: application/json; charset=utf-8");
 
-/*
-|--------------------------------------------------------------------------
-| Conexión a la base de datos
-|--------------------------------------------------------------------------
-*/
 
 $host = "localhost";
 $dbname = "sistema_cocha";
@@ -40,11 +27,7 @@ try {
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Función para responder en JSON
-|--------------------------------------------------------------------------
-*/
+
 
 function responder($success, $message, $data = null)
 {
@@ -57,21 +40,13 @@ function responder($success, $message, $data = null)
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Validar método HTTP
-|--------------------------------------------------------------------------
-*/
+
 
 if ($_SERVER["REQUEST_METHOD"] !== "GET") {
     responder(false, "Método no permitido. Use GET.");
 }
 
-/*
-|--------------------------------------------------------------------------
-| Recibir y validar el ID del libro
-|--------------------------------------------------------------------------
-*/
+
 
 $id_libro = $_GET["id_libro"] ?? "";
 
@@ -79,11 +54,6 @@ if ($id_libro === "" || !is_numeric($id_libro)) {
     responder(false, "Debe enviar un id_libro válido.");
 }
 
-/*
-|--------------------------------------------------------------------------
-| Consultar información completa del libro
-|--------------------------------------------------------------------------
-*/
 
 try {
     $sql = "SELECT

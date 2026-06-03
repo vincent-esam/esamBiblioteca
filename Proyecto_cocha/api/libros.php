@@ -3,11 +3,7 @@ require_once "../config/database.php";
 
 header("Content-Type: application/json; charset=utf-8");
 
-/*
-|--------------------------------------------------------------------------
-| Función para responder en JSON
-|--------------------------------------------------------------------------
-*/
+
 function responder($success, $message, $data = null)
 {
     echo json_encode([
@@ -19,21 +15,10 @@ function responder($success, $message, $data = null)
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Obtener método HTTP
-|--------------------------------------------------------------------------
-*/
+
 $metodo = $_SERVER["REQUEST_METHOD"];
 
-/*
-|--------------------------------------------------------------------------
-| GET: Mostrar libros o un libro
-|--------------------------------------------------------------------------
-| Ejemplo:
-| http://localhost/Proyecto_cocha/api/libros.php
-| http://localhost/Proyecto_cocha/api/libros.php?id=1
-*/
+
 if ($metodo === "GET") {
     try {
         $id = $_GET["id"] ?? null;
@@ -113,27 +98,7 @@ if ($metodo === "GET") {
     }
 }
 
-/*
-|--------------------------------------------------------------------------
-| POST: Crear libro
-|--------------------------------------------------------------------------
-| Enviar JSON:
-| {
-|   "titulo": "Libro de prueba",
-|   "subtitulo": "Subtítulo",
-|   "descripcion": "Descripción del libro",
-|   "isbn": "978-0000000001",
-|   "fecha_registro": "2026-05-27",
-|   "edicion": 1,
-|   "numero_paginas": 250,
-|   "id_categoria": 1,
-|   "id_autor": 1,
-|   "id_editorial": 1,
-|   "id_idioma": 1,
-|   "id_formato": 1,
-|   "ruta_portada": ""
-| }
-*/
+
 if ($metodo === "POST") {
     try {
         $input = json_decode(file_get_contents("php://input"), true);
@@ -242,17 +207,7 @@ if ($metodo === "POST") {
     }
 }
 
-/*
-|--------------------------------------------------------------------------
-| PUT: Actualizar libro
-|--------------------------------------------------------------------------
-| Enviar JSON con el ID:
-| {
-|   "id": 1,
-|   "titulo": "Libro actualizado",
-|   ...
-| }
-*/
+
 if ($metodo === "PUT") {
     try {
         $input = json_decode(file_get_contents("php://input"), true);
@@ -353,13 +308,7 @@ if ($metodo === "PUT") {
     }
 }
 
-/*
-|--------------------------------------------------------------------------
-| DELETE: Eliminar libro
-|--------------------------------------------------------------------------
-| Ejemplo:
-| http://localhost/Proyecto_cocha/api/libros.php?id=1
-*/
+
 if ($metodo === "DELETE") {
     try {
         $id = $_GET["id"] ?? "";

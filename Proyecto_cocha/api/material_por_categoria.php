@@ -1,21 +1,7 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| API REST: Listar material de biblioteca por categoría
-|--------------------------------------------------------------------------
-| Método: GET
-| Parámetro requerido: id_categoria
-| Ejemplo:
-| http://localhost/Proyecto_cocha/api/material_por_categoria.php?id_categoria=1
-*/
 
 header("Content-Type: application/json; charset=utf-8");
 
-/*
-|--------------------------------------------------------------------------
-| Conexión a la base de datos
-|--------------------------------------------------------------------------
-*/
 
 $host = "localhost";
 $dbname = "sistema_cocha";
@@ -40,11 +26,7 @@ try {
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Función para responder en JSON
-|--------------------------------------------------------------------------
-*/
+
 
 function responder($success, $message, $data = null)
 {
@@ -57,21 +39,12 @@ function responder($success, $message, $data = null)
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Validar método HTTP
-|--------------------------------------------------------------------------
-*/
+
 
 if ($_SERVER["REQUEST_METHOD"] !== "GET") {
     responder(false, "Método no permitido. Use GET.");
 }
 
-/*
-|--------------------------------------------------------------------------
-| Recibir y validar parámetro id_categoria
-|--------------------------------------------------------------------------
-*/
 
 $id_categoria = $_GET["id_categoria"] ?? "";
 
@@ -79,11 +52,7 @@ if ($id_categoria === "" || !is_numeric($id_categoria)) {
     responder(false, "Debe enviar un id_categoria válido.");
 }
 
-/*
-|--------------------------------------------------------------------------
-| Verificar si la categoría existe
-|--------------------------------------------------------------------------
-*/
+
 
 try {
     $sql_categoria = "SELECT id, categoria 
@@ -106,11 +75,7 @@ try {
     responder(false, "Error al verificar la categoría.", $e->getMessage());
 }
 
-/*
-|--------------------------------------------------------------------------
-| Listar material/libros por categoría
-|--------------------------------------------------------------------------
-*/
+
 
 try {
     $sql = "SELECT

@@ -1,21 +1,9 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| API REST: Listar material de biblioteca por autor
-|--------------------------------------------------------------------------
-| Método: GET
-| Parámetro requerido: id_autor
-| Ejemplo:
-| http://localhost/Proyecto_cocha/api/material_por_autor.php?id_autor=1
-*/
+
 
 header("Content-Type: application/json; charset=utf-8");
 
-/*
-|--------------------------------------------------------------------------
-| Conexión a la base de datos
-|--------------------------------------------------------------------------
-*/
+
 
 $host = "localhost";
 $dbname = "sistema_cocha";
@@ -40,11 +28,7 @@ try {
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Función para responder en JSON
-|--------------------------------------------------------------------------
-*/
+
 
 function responder($success, $message, $data = null)
 {
@@ -57,21 +41,13 @@ function responder($success, $message, $data = null)
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Validar método HTTP
-|--------------------------------------------------------------------------
-*/
+
 
 if ($_SERVER["REQUEST_METHOD"] !== "GET") {
     responder(false, "Método no permitido. Use GET.");
 }
 
-/*
-|--------------------------------------------------------------------------
-| Recibir y validar parámetro id_autor
-|--------------------------------------------------------------------------
-*/
+
 
 $id_autor = $_GET["id_autor"] ?? "";
 
@@ -79,11 +55,7 @@ if ($id_autor === "" || !is_numeric($id_autor)) {
     responder(false, "Debe enviar un id_autor válido.");
 }
 
-/*
-|--------------------------------------------------------------------------
-| Verificar si el autor existe
-|--------------------------------------------------------------------------
-*/
+
 
 try {
     $sql_autor = "SELECT 
@@ -109,13 +81,7 @@ try {
     responder(false, "Error al verificar el autor.", $e->getMessage());
 }
 
-/*
-|--------------------------------------------------------------------------
-| Listar material/libros publicados por el autor
-|--------------------------------------------------------------------------
-| Se usa libros_autores porque permite que un libro tenga uno o más autores.
-| También se contempla l.id_autor para compatibilidad con registros antiguos.
-*/
+
 
 try {
     $sql = "SELECT
