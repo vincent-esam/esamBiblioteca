@@ -1,0 +1,65 @@
+<h2>Buscador asincronico</h2>
+
+<label>Buscar libros:</label><br>
+<input type="text" id="buscador" placeholder="Escriba para buscar...">
+
+<div id="resultados"></div>
+
+<script>
+const inputBuscador = document.getElementById("buscador");
+const contenedorResultados = document.getElementById("resultados");
+
+let temporizador = null;
+
+inputBuscador.addEventListener("input", function () {
+    clearTimeout(temporizador);
+
+    const texto = this.value.trim();
+
+    temporizador = setTimeout(() => {
+        buscarMaterial(texto);
+    }, 400);
+});
+
+function buscarMaterial(texto) {
+    if (texto.length === 0) {
+        contenedorResultados.innerHTML = "<p>Escriba una palabra para buscar.</p>";
+        return;
+    }
+
+    fetch("../api/buscador.php?entidad=libros&q=" + encodeURIComponent(texto))
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                contenedorResultados.innerHTML = "<p>" + data.message + "</p>";
+                return;
+            }
+
+            const resultados = data.data.resultados;
+
+            if (resultados.length === 0) {
+                contenedorResultados.innerHTML = "<p>No se encontraron resultados.</p>";
+                return;
+            }
+
+            let html = "<ul>";
+
+            resultados.forEach(item => {
+                html += "<li>";
+                html += "<strong>" + item.titulo + "</strong><br>";
+                html += "Categoría: " + item.categoria + "<br>";
+                html += "Autores: " + (item.autores ?? "Sin autores") + "<br>";
+                html += "Descripción: " + (item.descripcion ?? "");
+                html += "</li><br>";
+            });
+
+            html += "</ul>";
+
+            contenedorResultados.innerHTML = html;
+        })
+        .catch(error => {
+            contenedorResultados.innerHTML = "<p>Error al consultar el servicio.</p>";
+            console.error(error);
+        });
+}
+</script>

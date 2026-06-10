@@ -1,0 +1,53 @@
+{
+  "success": true,
+  "message": "Resultados obtenidos correctamente según los filtros aplicados.",
+  "data": {
+    "filtros_aplicados": {
+      "q": "base",
+      "id_categoria": "1",
+      "id_autor": "2",
+      "id_editorial": "",
+      "id_idioma": "1",
+      "id_formato": "2",
+      "fecha_desde": "",
+      "fecha_hasta": "",
+      "autor_corporativo": "",
+      "orden": "fecha_desc",
+      "limite": 10,
+      "pagina": 1
+    },
+    "paginacion": {
+      "total_registros": 1,
+      "registros_en_pagina": 1,
+      "pagina_actual": 1,
+      "limite": 10,
+      "total_paginas": 1
+    },
+    "resultados": [
+      {
+        "id": 1,
+        "titulo": "Introducción a MySQL",
+        "subtitulo": "Base de datos desde cero",
+        "descripcion": "Libro introductorio sobre bases de datos.",
+        "isbn": "978-0000000001",
+        "fecha_registro": "2026-05-27",
+        "edicion": 1,
+        "numero_paginas": 250,
+        "ruta_portada": "uploads/portadas/portada_123.png",
+        "autor_corporativo": "",
+        "estado": "activo",
+        "id_categoria": 1,
+        "categoria": "Base de datos",
+        "id_editorial": 1,
+        "editorial": "Editorial 1",
+        "id_idioma": 1,
+        "idioma": "Español",
+        "id_formato": 2,
+        "formato": "PDF",
+        "id_autores": "2",
+        "autores": "Autor 2"
+      }
+    ]
+  },
+  "error": null
+}

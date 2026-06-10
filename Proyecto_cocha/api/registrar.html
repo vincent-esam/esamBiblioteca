@@ -1,0 +1,20 @@
+<script>
+fetch("../api/registrar_visita.php", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        id_usuario: 1,
+        tipo_recurso: "libro",
+        id_recurso: 1
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+})
+.catch(error => {
+    console.error("Error al registrar visita:", error);
+});
+</script>

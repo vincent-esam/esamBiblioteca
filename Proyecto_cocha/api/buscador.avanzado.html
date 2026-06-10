@@ -1,0 +1,79 @@
+<h2>Buscador avanzado</h2>
+
+<label>Texto:</label><br>
+<input type="text" id="q"><br><br>
+
+<label>Categoria:</label><br>
+<input type="number" id="id_categoria"><br><br>
+
+<label>Autor:</label><br>
+<input type="number" id="id_autor"><br><br>
+
+<label>Idioma:</label><br>
+<input type="number" id="id_idioma"><br><br>
+
+<label>Formato:</label><br>
+<input type="number" id="id_formato"><br><br>
+
+<button type="button" onclick="buscarMaterial()">Buscar</button>
+
+<hr>
+
+<div id="resultados"></div>
+
+<script>
+function buscarMaterial() {
+    const filtros = new URLSearchParams();
+
+    const q = document.getElementById("q").value.trim();
+    const idCategoria = document.getElementById("id_categoria").value.trim();
+    const idAutor = document.getElementById("id_autor").value.trim();
+    const idIdioma = document.getElementById("id_idioma").value.trim();
+    const idFormato = document.getElementById("id_formato").value.trim();
+
+    if (q !== "") filtros.append("q", q);
+    if (idCategoria !== "") filtros.append("id_categoria", idCategoria);
+    if (idAutor !== "") filtros.append("id_autor", idAutor);
+    if (idIdioma !== "") filtros.append("id_idioma", idIdioma);
+    if (idFormato !== "") filtros.append("id_formato", idFormato);
+
+    fetch("../api/buscar_material.php?" + filtros.toString())
+        .then(response => response.json())
+        .then(data => {
+            const contenedor = document.getElementById("resultados");
+
+            if (!data.success) {
+                contenedor.innerHTML = "<p>" + data.message + "</p>";
+                return;
+            }
+
+            const resultados = data.data.resultados;
+
+            if (resultados.length === 0) {
+                contenedor.innerHTML = "<p>No se encontraron resultados.</p>";
+                return;
+            }
+
+            let html = "<ul>";
+
+            resultados.forEach(item => {
+                html += "<li>";
+                html += "<strong>" + item.titulo + "</strong><br>";
+                html += "Categoría: " + item.categoria + "<br>";
+                html += "Autores: " + (item.autores ?? "Sin autores") + "<br>";
+                html += "Editorial: " + item.editorial + "<br>";
+                html += "Idioma: " + item.idioma + "<br>";
+                html += "Formato: " + item.formato + "<br>";
+                html += "</li><br>";
+            });
+
+            html += "</ul>";
+
+            contenedor.innerHTML = html;
+        })
+        .catch(error => {
+            document.getElementById("resultados").innerHTML = "<p>Error al consultar el servicio.</p>";
+            console.error(error);
+        });
+}
+</script>
